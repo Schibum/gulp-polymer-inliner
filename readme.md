@@ -1,14 +1,12 @@
-# gulp-crisper
+# gulp-polymer-inliner
 
-> Gulp plugin for [Crisper](https://github.com/PolymerLabs/crisper) that split inline scripts from an HTML file for CSP compliance
-
-*Issues with the output should be reported on the `Crisper` [issue tracker](https://github.com/PolymerLabs/crisper/issues).*
+> Gulp plugin for [Polymer-inliner](https://github.com/Schibum/polymer-inliner) 
 
 
 ## Install
 
 ```
-$ npm install --save-dev gulp-crisper
+$ npm install --save-dev schibum/gulp-polymer-inliner
 ```
 
 
@@ -17,7 +15,7 @@ $ npm install --save-dev gulp-crisper
 ```js
 var gulp = require('gulp');
 var vulcanize = require('gulp-vulcanize');
-var crisper = require('gulp-crisper');
+var inliner = require('gulp-polymer-inliner');
 
 gulp.task('default', function () {
 	return gulp.src('src/index.html')
@@ -27,7 +25,7 @@ gulp.task('default', function () {
 			stripExcludes: false,
 			inlineScripts: false
 		}))
-		.pipe(crisper());
+		.pipe(inliner());
 		.pipe(gulp.dest('dest'));
 });
 ```

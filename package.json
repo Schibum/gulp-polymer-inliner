@@ -1,13 +1,16 @@
 {
-  "name": "gulp-crisper",
+  "name": "gulp-polymer-inliner",
   "version": "0.0.4",
-  "description": "Gulp plugin for crisper that split inline scripts from an HTML file for CSP compliance",
+  "description": "Gulp plugin for polymer-inliner that inlines templates and styles for Chrome content scripts",
   "license": "MIT",
-  "author": {
-    "name": "ragingwind",
-    "email": "ragingwind@gmail.com"
-  },
-  "repository": "ragingwind/gulp-crisper",
+  "author": "Manuel Braun <mb@w69b.com>",
+  "contributers": [
+    {
+      "name": "ragingwind",
+      "email": "ragingwind@gmail.com"
+    }
+  ],
+  "repository": "schibum/gulp-polymer-inliner",
   "engines": {
     "node": ">=0.10.0"
   },
@@ -28,11 +31,12 @@
     "components"
   ],
   "dependencies": {
-    "crisper": "^1.0.3",
     "gulp-util": "^3.0.0",
+    "polymer-inliner": "schibum/polymer-inliner",
     "through2": "^0.6.1"
   },
   "devDependencies": {
+    "chai": "^3.0.0",
     "gulp-vulcanize": "^6.0.0",
     "mkdirp": "^0.5.0",
     "mocha": "*",

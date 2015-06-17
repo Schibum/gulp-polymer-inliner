@@ -2,7 +2,7 @@
 var path = require('path');
 var gutil = require('gulp-util');
 var through = require('through2');
-var crisper = require('crisper');
+var inliner = require('polymer-inliner');
 
 function splitFile(file, filename, contents) {
   return new gutil.File({
@@ -29,12 +29,12 @@ module.exports = function () {
     }
 
     if (file.isStream()) {
-    	cb(new gutil.PluginError('gulp-crisper', 'Streaming not supported'));
+    	cb(new gutil.PluginError('gulp-polymer-inliner', 'Streaming not supported'));
     	return;
     }
 
     var splitfile = getFilename(file.path)
-    var split = crisper.split(file.contents.toString(), splitfile.js);
+    var split = inliner.split(file.contents.toString(), splitfile.js);
     var stream = this;
 
     Object.keys(split).forEach(function(type) {

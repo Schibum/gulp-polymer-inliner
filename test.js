@@ -1,18 +1,18 @@
 'use strict';
-var assert = require('assert');
+var assert = require('chai').assert;
 var fs = require('fs');
 var path = require('path');
 var gutil = require('gulp-util');
 var mkdirp = require('mkdirp');
 var rimraf = require('rimraf');
 var vulcanize = require('gulp-vulcanize');
-var crisper = require('./');
+var inliner = require('./');
 
 function copyTestFile(src, dest) {
 	fs.writeFileSync(dest, fs.readFileSync(src, 'utf8'));
 }
 
-describe('should do for csp', function () {
+describe('should inline', function () {
 	before(function (cb) {
 		rimraf.sync('tmp');
 		mkdirp.sync('tmp/dist');
@@ -39,20 +39,19 @@ describe('should do for csp', function () {
 	});
 
 	it('simple-usage', function (cb) {
-		var stream = crisper();
+		var stream = inliner();
 
 		stream.on('data', function (file) {
 			var ext = path.extname(file.path);
 			var contents = file.contents.toString();
-			var rex = {
-				js: /Polymer\({/,
-				html: /<script src=\"vulcanize.js\"><\/script><\/body><\/html>/
-			};
 
 			if (/\.html$/.test(file.path)) {
-				assert(rex.html.test(contents));
+				assert.notInclude(contents, '<script');
+				assert.notInclude(contents, '<dom-module');
+				assert.notInclude(contents, '<style');
 			} else if (/\.js$/.test(file.path)) {
-				assert(rex.js.test(contents));
+				assert.include(contents, 'Polymer.registerGlobalStyle(\'customStyleContent\');');
+				assert.include(contents, 'Polymer.registerInlineDomModule(\'x-import\'');
 			} else {
 				assert(null);
 			}
