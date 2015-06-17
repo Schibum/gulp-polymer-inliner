@@ -50,8 +50,9 @@ describe('should inline', function () {
 				assert.notInclude(contents, '<dom-module');
 				assert.notInclude(contents, '<style');
 			} else if (/\.js$/.test(file.path)) {
-				assert.include(contents, 'Polymer.registerGlobalStyle(\'customStyleContent\');');
-				assert.include(contents, 'Polymer.registerInlineDomModule(\'x-import\'');
+				assert.include(contents, 'PolymerInliner.addImportContent(\'');
+				assert.include(contents, '<dom-module id="x-import"');
+				assert.include(contents, '<style is="custom-style">customStyleContent</style>');
 			} else {
 				assert(null);
 			}
