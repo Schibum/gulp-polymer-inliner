@@ -39,7 +39,7 @@ describe('should inline', function () {
 	});
 
 	it('simple-usage', function (cb) {
-		var stream = inliner();
+		var stream = inliner({prefix: 'my-'});
 
 		stream.on('data', function (file) {
 			var ext = path.extname(file.path);
@@ -51,8 +51,8 @@ describe('should inline', function () {
 				assert.notInclude(contents, '<style');
 			} else if (/\.js$/.test(file.path)) {
 				assert.include(contents, 'PolymerInliner.addImportContent(\'');
-				assert.include(contents, '<dom-module id="x-import"');
-				assert.include(contents, '<style is="custom-style">customStyleContent</style>');
+				assert.include(contents, '<my-dom-module id="x-import"');
+				assert.include(contents, '<style is="my-custom-style">customStyleContent</style>');
 			} else {
 				assert(null);
 			}

@@ -21,7 +21,7 @@ function getFilename(filepath) {
   };
 }
 
-module.exports = function () {
+module.exports = function(options) {
   return through.obj(function (file, enc, cb) {
     if (file.isNull()) {
     	cb(null, file);
@@ -34,7 +34,7 @@ module.exports = function () {
     }
 
     var splitfile = getFilename(file.path)
-    var split = inliner.split(file.contents.toString(), splitfile.js);
+    var split = inliner.split(file.contents.toString(), options);
     var stream = this;
 
     Object.keys(split).forEach(function(type) {
